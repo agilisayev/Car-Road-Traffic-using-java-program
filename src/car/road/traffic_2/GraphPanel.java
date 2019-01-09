@@ -80,7 +80,7 @@ public class GraphPanel extends Applet implements Runnable {
             n.carL = carlength;
         }
 //              temp=(int)(3*Math.random());                   // three lanes
-//    n.y = 150+50*temp;
+//	    n.y = 150+50*temp;
         if (temp == 4) {
             temp = 0;
         }
@@ -91,6 +91,7 @@ public class GraphPanel extends Applet implements Runnable {
         return nnodes++;
     }
 
+    @Override
     public void run() {
         for (int j = 0; j < 5; j++) {
             light[j].signal = 1;
@@ -383,6 +384,7 @@ public class GraphPanel extends Applet implements Runnable {
         }
     }
 
+    @Override
     public synchronized void update(Graphics g) {
 
         Dimension d = size();
@@ -401,13 +403,14 @@ public class GraphPanel extends Applet implements Runnable {
         paintLghtPeriod(offgraphics);
 //draw axies for the flow chart
         paintAxies(offgraphics);
-//draw cars
+//draw cars             
         for (int i = 0; i < nnodes; i++) {
             paintNode(offgraphics, nodes[i]);
         }
         g.drawImage(offscreen, 0, 0, null);
     }
 
+    @Override
     public synchronized boolean mouseDown(Event evt, int x, int y) {
         double bestdist = Double.MAX_VALUE;
         for (int i = 0; i < nnodes; i++) {
@@ -426,6 +429,7 @@ public class GraphPanel extends Applet implements Runnable {
         return true;
     }
 
+    @Override
     public synchronized boolean mouseDrag(Event evt, int x, int y) {
         pick.x = x;
         pick.y = y;
@@ -433,6 +437,7 @@ public class GraphPanel extends Applet implements Runnable {
         return true;
     }
 
+    @Override
     public synchronized boolean mouseUp(Event evt, int x, int y) {
         boolean insidelane;
         pick.x = x;
@@ -463,11 +468,13 @@ public class GraphPanel extends Applet implements Runnable {
         return true;
     }
 
+    @Override
     public void start() {
         relaxer = new Thread(this);
         relaxer.start();
     }
 
+    @Override
     public void stop() {
         relaxer.stop();
     }
